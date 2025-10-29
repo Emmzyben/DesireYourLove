@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useNotification } from '../contexts/NotificationContext';
 import { apiService } from '../services/api';
-import { Heart, Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { Heart, Eye, EyeOff, Mail, Lock, Menu, X } from 'lucide-react';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { login } = useAuth();
   const { addNotification } = useNotification();
@@ -78,24 +79,69 @@ const Login = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-white via-pink-50 to-red-50">
         <div className="w-full max-w-md space-y-8 animate-slide-up">
           {/* Navigation */}
-          <nav className="flex justify-between items-center mb-8">
-            <Link to="/" className="flex items-center space-x-2 group">
-              <Heart className="h-8 w-8 text-pink-500 group-hover:scale-110 transition-transform" />
-              <span className="text-xl font-bold text-gray-900">DesireYourLove</span>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/"
-                className="text-gray-700 hover:text-pink-500 transition-colors font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                to="/register"
-                className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-6 py-2 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Sign Up
-              </Link>
+          <nav className="bg-white/90 backdrop-blur-md shadow-lg border-b border-pink-100 sticky top-0 z-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between h-20">
+                <div className="flex items-center">
+                  <Link to="/" className="flex items-center space-x-3 group">
+                    <div className="relative">
+                      <Heart className="h-10 w-10 text-pink-500 group-hover:scale-110 transition-transform duration-300" />
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
+                      DesireYourLove
+                    </span>
+                  </Link>
+                </div>
+                {/* Desktop Menu */}
+                <div className="hidden md:flex items-center space-x-6">
+                  <Link
+                    to="/"
+                    className="text-gray-700 hover:text-pink-500 transition-all duration-300 font-medium relative group"
+                  >
+                    Home
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-pink-500 group-hover:w-full transition-all duration-300"></span>
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-6 py-3 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+
+                {/* Mobile Menu Button */}
+                <div className="md:hidden">
+                  <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="text-gray-700 hover:text-pink-500 transition-colors duration-300 p-2"
+                  >
+                    {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile Menu */}
+              {isMenuOpen && (
+                <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-pink-100">
+                  <div className="px-4 py-4 space-y-4">
+                    <Link
+                      to="/"
+                      className="block text-gray-700 hover:text-pink-500 transition-all duration-300 font-medium py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      to="/register"
+                      className="block bg-gradient-to-r from-pink-500 to-red-500 text-white px-6 py-3 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold text-center"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
+                </div>
+              )}
             </div>
           </nav>
 

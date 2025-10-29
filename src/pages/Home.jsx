@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Users, MessageCircle, Shield, Sparkles, Star, ArrowRight, Play, CheckCircle, TrendingUp, Award, Zap } from 'lucide-react';
+import { Heart, Users, MessageCircle, Shield, Sparkles, Star, ArrowRight, Play, CheckCircle, TrendingUp, Award, Zap, Menu, X } from 'lucide-react';
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const heroImages = [
     '/images/sunset-happy-couple-e1425955022863.jpg',
@@ -38,7 +39,8 @@ const Home = () => {
                 </span>
               </Link>
             </div>
-            <div className="flex items-center space-x-6">
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center space-x-6">
               <Link
                 to="/login"
                 className="text-gray-700 hover:text-pink-500 transition-all duration-300 font-medium relative group"
@@ -53,7 +55,39 @@ const Home = () => {
                 Start Free
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-gray-700 hover:text-pink-500 transition-colors duration-300 p-2"
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-pink-100">
+              <div className="px-4 py-4 space-y-4">
+                <Link
+                  to="/login"
+                  className="block text-gray-700 hover:text-pink-500 transition-all duration-300 font-medium py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="block bg-gradient-to-r from-pink-500 to-red-500 text-white px-6 py-3 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold text-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Start Free
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
