@@ -15,6 +15,26 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    // Check onboarding status on dashboard load
+    const checkOnboardingStatus = async () => {
+      try {
+        const response = await apiService.getOnboardingStatus();
+        if (!response.data.onboardingCompleted) {
+          navigate('/onboarding');
+          return;
+        }
+      } catch (error) {
+        console.error('Error checking onboarding status:', error);
+        // If we can't check status, assume onboarding is not completed
+        navigate('/onboarding');
+        return;
+      }
+    };
+
+    checkOnboardingStatus();
+  }, [navigate]);
+
+  useEffect(() => {
     loadUsers(currentPage);
   }, [currentPage]);
 

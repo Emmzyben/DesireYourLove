@@ -49,9 +49,9 @@ const Login = () => {
           navigate('/dashboard');
         }
       } catch (onboardingError) {
-        // If onboarding status check fails, assume onboarding is not completed
+        // If onboarding status check fails, redirect to dashboard and let dashboard handle it
         console.error('Failed to check onboarding status:', onboardingError);
-        navigate('/onboarding');
+        navigate('/dashboard');
       }
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';
