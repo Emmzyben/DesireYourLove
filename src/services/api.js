@@ -35,6 +35,12 @@ class ApiService {
           localStorage.removeItem('user');
           window.location.href = '/login';
         }
+        // Don't reject for 403 (Forbidden) on onboarding status - this might be due to CORS or auth issues
+        // Let the component handle it gracefully
+        if (error.response?.status === 403 && error.config.url.includes('/onboarding/status')) {
+          console.warn('Onboarding status check failed, proceeding without redirect');
+          return Promise.resolve({ data: { onboardingCompleted: true } });
+        }
         return Promise.reject(error);
       }
     );

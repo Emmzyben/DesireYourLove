@@ -25,9 +25,8 @@ const Dashboard = () => {
         }
       } catch (error) {
         console.error('Error checking onboarding status:', error);
-        // If we can't check status, assume onboarding is not completed
-        navigate('/onboarding');
-        return;
+        // If we can't check status, don't redirect - let user proceed
+        // This prevents infinite loops if the API is down
       }
     };
 
