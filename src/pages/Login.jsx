@@ -36,8 +36,18 @@ const Login = () => {
       const { token, user } = response.data;
 
       login(token, user);
+
+      // Check onboarding status
+      const onboardingResponse = await apiService.getOnboardingStatus();
+      const { onboardingCompleted } = onboardingResponse.data;
+
       addNotification('success', 'Welcome back!', `Hello ${user.firstName}, you've successfully logged in.`);
-      navigate('/dashboard');
+
+      if (!onboardingCompleted) {
+        navigate('/onboarding');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';
       const errorEmail = err.response?.data?.email;
