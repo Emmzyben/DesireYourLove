@@ -237,7 +237,7 @@ const UserDetails = () => {
                   ))}
                 </div>
               </div>
-            )}
+            )} 
 
             {/* Action Buttons */}
             <div className="flex gap-4">

@@ -96,8 +96,8 @@ const Login = () => {
           {/* Navigation */}
           <nav className="bg-white/90 backdrop-blur-md shadow-lg border-b border-pink-100 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between h-20">
-                <div className="flex items-center">
+              <div className="flex justify-between h-20 ">
+                <div className="flex items-center mr-10">
                   <Link to="/" className="flex items-center space-x-3 group">
                     <div className="relative">
                       <Heart className="h-10 w-10 text-pink-500 group-hover:scale-110 transition-transform duration-300" />

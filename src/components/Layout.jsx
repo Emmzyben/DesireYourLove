@@ -112,7 +112,7 @@ const Layout = ({ children }) => {
               </div>
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu button */} 
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
